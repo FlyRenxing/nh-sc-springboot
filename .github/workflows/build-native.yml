@@ -8,7 +8,7 @@ jobs:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        os: [ubuntu-latest, macos-latest]
+        os: [ubuntu-latest, macos-latest, windows-latest]
 
     steps:
       # Step 1: Checkout the code
@@ -19,27 +19,13 @@ jobs:
       - name: Setup GraalVM
         uses: graalvm/setup-graalvm@v1
         with:
-          java-version: '21.0.5'  # GraalVM version compatible with your build
+          java-version: '21'  # GraalVM version compatible with your build
           distribution: 'graalvm'
           github-token: ${{ secrets.GITHUB_TOKEN }}
-      
-      # Step 3: Install Native Image
-      - name: Install Native Image
-        run: gu install native-image
-
-      # Step 4: Set Up Maven
-      - name: Setup Maven
-        uses: actions/setup-java@v3
-        with:
-          distribution: 'temurin'
-          java-version: '21'
-
+          native-image-job-reports: 'true'
       # Step 5: Build Native Image
       - name: Build Spring Boot Native Image
-        run: |
-          export GRAALVM_HOME=$(which java | sed 's|/bin/java||')
-          echo "Using GraalVM at $GRAALVM_HOME"
-          ./mvnw org.graalvm.buildtools:native-maven-plugin:0.10.3:compile -P native
+        run: mvn -Pnative native:compile
 
       # Step 6: Upload Binary
       - name: Upload Binary
