@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NH商店 - 主页</title>
+    <link rel="stylesheet" href="/css/index.css">
+</head>
+<body class="bg-base-100">
+
+<!-- 导航栏 -->
+<div th:replace="~{header :: header}"></div>
+
+<div class="container mx-auto p-6">
+    <!-- hero部分 -->
+    <section class="hero bg-primary text-primary-content rounded-lg p-10">
+        <div class="hero-content text-center">
+            <h1 class="text-5xl font-bold">欢迎来到NH商店</h1>
+            <p class="py-6">探索我们的产品，享受您的购物。</p>
+            <a href="/products" class="btn btn-secondary">立即购物</a>
+        </div>
+    </section>
+
+    <!-- 热门商品部分 -->
+    <section class="product-section my-10">
+        <h2 class="text-3xl font-bold mb-6">热门商品</h2>
+        <!-- 使用复用的商品展示模板 -->
+        <div th:replace="~{fragments/product-list :: productList}"></div>
+    </section>
+</div>
+
+<div th:replace="~{footer :: footer}"></div>
+
+</body>
+</html>

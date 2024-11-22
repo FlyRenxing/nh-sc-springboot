@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NH商店 - 商品表单</title>
+    <link rel="stylesheet" href="/css/index.css">
+</head>
+<body class="bg-base-100">
+
+<!-- 引入独立的 header 文件 -->
+<div th:replace="~{header :: header}"></div>
+
+<div class="container mx-auto p-6">
+    <div class="max-w-xl mx-auto bg-white shadow-md rounded-lg p-8">
+        <h1 th:text="${product.id != null} ? '编辑商品' : '新增商品'" class="text-3xl font-bold mb-6 text-center">商品表单</h1>
+
+        <form th:action="@{/admin/products/save}" th:object="${product}" method="post" enctype="multipart/form-data">
+            <input type="hidden" th:field="*{id}">
+
+            <div class="mb-4">
+                <label for="name" class="block text-sm font-medium text-gray-700">名称</label>
+                <input type="text" id="name" th:field="*{name}" class="input input-bordered w-full mt-1" required>
+            </div>
+
+            <div class="mb-4">
+                <label for="description" class="block text-sm font-medium text-gray-700">描述</label>
+                <textarea id="description" th:field="*{description}" class="textarea textarea-bordered w-full mt-1" required></textarea>
+            </div>
+
+            <div class="mb-4">
+                <label for="price" class="block text-sm font-medium text-gray-700">价格</label>
+                <input type="number" step="0.01" id="price" th:field="*{price}" class="input input-bordered w-full mt-1" required>
+            </div>
+
+            <div class="mb-4">
+                <label for="uploadImage" class="block text-sm font-medium text-gray-700">上传图片</label>
+                <input type="file" id="uploadImage" name="uploadImage" class="input input-bordered w-full mt-1">
+
+                <!-- 显示当前商品的图片（如果有） -->
+                <div th:if="${product.image != null}" class="mt-4">
+                    <p class="text-sm font-medium text-gray-700">当前图片:</p>
+                    <img th:src="@{'/uploads/' + ${product.image}}" alt="Product Image" class="w-40 h-40 object-cover rounded-md mt-2">
+                </div>
+            </div>
+
+            <button type="submit" class="btn btn-primary w-full mt-4">保存</button>
+        </form>
+    </div>
+</div>
+
+<!-- 引入独立的 footer 文件 -->
+<div th:replace="~{footer :: footer}"></div>
+
+</body>
+</html>

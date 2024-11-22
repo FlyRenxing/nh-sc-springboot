@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NH商店 - 用户注册</title>
+    <link rel="stylesheet" href="/css/index.css">
+</head>
+<body class="bg-base-100">
+
+<!-- 引入独立的 header 文件 -->
+<div th:replace="~{header :: header}"></div>
+
+<div class="container mx-auto p-6">
+    <div class="max-w-md mx-auto bg-white shadow-md rounded-lg p-8">
+        <h2 class="text-3xl font-bold mb-6 text-center">用户注册</h2>
+
+        <!-- 检测是否有注册错误 -->
+        <div th:if="${error}" class="mb-4">
+            <div class="alert alert-error shadow-lg">
+                <div>
+                    <span th:text="${error}">注册失败，请重试！</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- 注册表单 -->
+        <form th:action="@{/register}" method="post">
+            <div class="mb-4">
+                <label class="block text-sm font-medium text-gray-700">用户名</label>
+                <input type="text" name="username" class="input input-bordered w-full mt-1" required>
+            </div>
+
+            <div class="mb-4">
+                <label class="block text-sm font-medium text-gray-700">密码</label>
+                <input type="password" name="password" class="input input-bordered w-full mt-1" required>
+            </div>
+
+            <div class="mb-4">
+                <label class="block text-sm font-medium text-gray-700">确认密码</label>
+                <input type="password" name="confirmPassword" class="input input-bordered w-full mt-1" required>
+            </div>
+
+            <button type="submit" class="btn btn-primary w-full mt-4">注册</button>
+        </form>
+
+        <div class="text-center mt-6">
+            <p>已经有账号？<a href="/login" class="text-blue-500">登录</a></p>
+        </div>
+    </div>
+</div>
+
+<div th:replace="~{footer :: footer}"></div>
+
+</body>
+</html>

@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NH商店 - 登录</title>
+    <link rel="stylesheet" href="/css/index.css">
+</head>
+<body class="bg-base-100">
+
+<!-- 引入独立的 header 文件 -->
+<div th:replace="~{header :: header}"></div>
+
+<div class="container mx-auto p-6">
+    <div class="max-w-md mx-auto bg-white shadow-md rounded-lg p-8">
+        <h2 class="text-3xl font-bold mb-6 text-center">用户登录</h2>
+
+        <!-- 检测是否有登录错误 -->
+        <div th:if="${param.error}" class="mb-4">
+            <div class="alert alert-error shadow-lg">
+                <div>
+                    <span>用户名或密码错误，请重新输入！</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- 登录表单 -->
+        <form th:action="@{/login}" method="post">
+            <div class="mb-4">
+                <label class="block text-sm font-medium text-gray-700">用户名</label>
+                <input type="text" name="username" class="input input-bordered w-full mt-1" required>
+            </div>
+
+            <div class="mb-4">
+                <label class="block text-sm font-medium text-gray-700">密码</label>
+                <input type="password" name="password" class="input input-bordered w-full mt-1" required>
+            </div>
+
+            <!-- 记住我复选框 -->
+            <div class="mb-4 flex items-center">
+                <input type="checkbox" name="remember-me" id="remember-me" class="checkbox mr-2">
+                <label for="remember-me" class="text-sm text-gray-700">记住我</label>
+            </div>
+
+            <button type="submit" class="btn btn-primary w-full mt-4">登录</button>
+
+            <p class="text-center mt-4">还没有账号？ <a th:href="@{/register}" class="text-primary hover:underline">立即注册</a></p>
+        </form>
+    </div>
+</div>
+
+<div th:replace="~{footer :: footer}"></div>
+
+</body>
+</html>

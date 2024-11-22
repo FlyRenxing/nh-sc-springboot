@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NH商店 - 购物车</title>
+    <link rel="stylesheet" href="/css/index.css">
+
+</head>
+<body class="bg-base-100">
+
+<div th:replace="~{header :: header}"></div>
+
+<div class="container mx-auto p-6">
+    <h2 class="text-3xl font-bold mb-6">您的购物车</h2>
+
+    <!-- 如果下单成功，显示提示信息 -->
+    <div th:if="${param.orderSuccess}" class="alert alert-success">
+        <p>订单已成功提交！感谢您的购买。</p>
+    </div>
+
+    <div class="cart-items">
+        <div th:each="item : ${cart.items}">
+            <div class="card w-full bg-base-100 shadow-lg mb-4">
+                <div class="card-body flex flex-row items-center">
+                    <img th:src="'/upload/'+${item.product.image}" alt="Product Image" th:alt="${item.product.name}" class="w-24 h-24 object-cover mr-4"/>
+                    <div class="flex-grow">
+                        <h3 class="card-title text-lg font-bold" th:text="${item.product.name}">商品名称</h3>
+<!--                        <p class="text-gray-500">库存: <span th:text="${item.product.stock}"></span></p>-->
+                        <p class="text-gray-500" th:text="'数量：' + ${item.quantity}">数量</p> <p class="text-gray-500" th:text="'总价：¥' + ${item.totalPrice}">价格</p>
+
+
+                    </div>
+
+                    <!-- 删除商品按钮 -->
+
+                    <form th:action="@{/cart/remove}" method="post" class="ml-auto">
+
+                        <input type="hidden" name="productId" th:value="${item.product.id}">
+                        <button type="submit" class="btn btn-error">移除</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div th:if="${!cart.items.isEmpty()}">
+
+        <form th:action="@{/cart/checkout}" method="post"  class="flex justify-end items-center" >
+            <h3 class="text-xl font-bold">总价: ￥<span id="totalPrice" th:text="${totalPrice}"></span></h3>
+            <button type="submit" class="btn btn-primary">下单</button>
+        </form>
+    </div>
+<!--    购物车为空时显示-->
+    <div th:if="${cart.items.isEmpty()}">
+        <p>购物车为空</p>
+    </div>
+</div>
+
+<div th:replace="~{footer :: footer}"></div>
+
+</body>
+</html>

@@ -1,0 +1,42 @@
+file:
+  upload-dir: /Users/renxing/Desktop/作业/网络应用开发/nh-sc-springboot/src/main/resources/static/upload/
+spring:
+  application:
+        name: nh-sc-springboot
+  thymeleaf:
+    prefix: classpath:/templates/
+    suffix: .html
+    enabled: true
+  datasource:
+    url: jdbc:mysql://localhost:3306/nhsc?useSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true
+    username: root
+    password: 123456
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  jpa:
+    hibernate:
+      ddl-auto: update  # 自动创建、更新数据库表结构（可选值有 none, validate, update, create, create-drop）
+    show-sql: true       # 是否打印SQL语句
+    properties:
+      hibernate:
+        format_sql: true  # 是否格式化打印SQL语句
+        dialect: org.hibernate.dialect.MySQL8Dialect  # 指定方言
+    open-in-view: false  # 防止延迟加载问题
+  threads:
+    virtual:
+      enabled: true
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+logging:
+  level:
+    org.springframework.security: DEBUG
+    org:
+      hibernate:
+        SQL: debug  # 打印执行的SQL日志
+        type:
+          descriptor:
+            sql:
+              BasicBinder: trace  # 打印SQL绑定参数
+

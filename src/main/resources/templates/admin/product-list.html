@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NH商店 - 商品管理</title>
+    <link rel="stylesheet" href="/css/index.css">
+</head>
+<body class="bg-base-100">
+
+<!-- 引入独立的 header 文件 -->
+<div th:replace="~{header :: header}"></div>
+
+<div class="container mx-auto p-6">
+    <div class="flex justify-between items-center mb-6">
+        <h1 class="text-3xl font-bold">商品管理</h1>
+        <a href="/admin/products/new" class="btn btn-primary">新增商品</a>
+    </div>
+
+    <div class="bg-white shadow-md rounded-lg p-6">
+        <table class="table w-full">
+            <thead>
+            <tr class="bg-gray-100">
+                <th class="p-2 text-left">图片</th>
+                <th class="p-2 text-left">名称</th>
+                <th class="p-2 text-left">描述</th>
+                <th class="p-2 text-left">价格</th>
+                <th class="p-2 text-center">操作</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="product : ${products}" class="border-b">
+                <td class="p-2">
+                    <!-- 如果有图片，显示图片；如果没有，显示占位符 -->
+                    <img th:src="${product.image != null} ? @{'/uploads/' + ${product.image}} : @{'/images/no-image.png'}"
+                         alt="Product Image" class="w-20 h-20 object-cover rounded-md">
+                </td>
+                <td class="p-2" th:text="${product.name}">商品名称</td>
+                <td class="p-2 truncate" th:text="${product.description}">商品描述</td>
+                <td class="p-2" th:text="${product.price}">商品价格</td>
+                <td class="p-2 text-center">
+                    <a th:href="@{/admin/products/edit/{id}(id=${product.id})}" class="btn btn-secondary">编辑</a>
+                    <form th:action="@{/admin/products/delete/{id}(id=${product.id})}" method="post" class="inline-block">
+                        <button type="submit" class="btn btn-danger ml-2">删除</button>
+                    </form>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<!-- 引入独立的 footer 文件 -->
+<div th:replace="~{footer :: footer}"></div>
+
+</body>
+</html>

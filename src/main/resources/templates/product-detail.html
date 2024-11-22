@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NH商店 - 产品详情</title>
+    <link rel="stylesheet" href="/css/index.css">
+</head>
+<body class="bg-base-100">
+
+<!-- 引入独立的 header 文件 -->
+<div th:replace="~{header :: header}"></div>
+
+<div class="container mx-auto p-6">
+    <h2 class="text-3xl font-bold mb-6" th:text="${product.name}">产品名称</h2>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <!-- 产品图片 -->
+        <div class="product-image">
+            <img th:src="'/upload/'+${product.image}" alt="Product Image" th:alt="${product.name}">
+        </div>
+
+        <!-- 产品详细信息 -->
+        <div class="product-details">
+            <p class="text-lg mb-4" th:text="${product.description}">产品描述</p>
+            <p class="text-2xl text-primary font-bold mb-4" th:text="'￥' + ${product.price}">产品价格</p>
+
+            <!-- 购物车按钮 -->
+            <form th:action="@{/cart/add}" method="post">
+                <input type="hidden" name="productId" th:value="${product.id}">
+                <button type="submit" class="btn btn-primary">加入购物车</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+<div th:replace="~{footer :: footer}"></div>
+
+
+</body>
+</html>

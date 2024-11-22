@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NH商店 - 所有商品</title>
+    <link rel="stylesheet" href="/css/index.css">
+</head>
+<body class="bg-base-100">
+
+<!-- 引入独立的 header 文件 -->
+<div th:replace="~{header :: header}"></div>
+
+<div class="container mx-auto p-6">
+    <h2 class="text-3xl font-bold mb-6">所有商品</h2>
+
+    <!-- 使用复用的商品展示模板 -->
+    <div th:replace="~{fragments/product-list :: productList}"></div>
+</div>
+
+<div th:replace="~{footer :: footer}"></div>
+
+
+</body>
+</html>
