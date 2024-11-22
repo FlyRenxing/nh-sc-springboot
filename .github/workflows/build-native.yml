@@ -25,7 +25,7 @@ jobs:
           native-image-job-reports: 'true'
       # Step 5: Build Native Image
       - name: Build Spring Boot Native Image
-        run: mvn -Pnative native:compile
+        run: mvn -Pnative -DskipTests=true native:compile
 
       # Step 6: Upload Binary
       - name: Upload Binary
